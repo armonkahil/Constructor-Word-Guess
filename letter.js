@@ -1,4 +1,3 @@
-const gradient = require('gradient-string')
 // Constructor
 function Letter (letter) {
   // a string to store underlying character
@@ -19,7 +18,6 @@ function Letter (letter) {
   this.letterCheck = function (userGuess) {
     if (this.letter === userGuess) {
       this.guessed = true
-      // console.log(gradient.summer('Correct!!'))
     }
   }
 }

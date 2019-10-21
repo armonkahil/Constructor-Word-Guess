@@ -1,5 +1,4 @@
 const Letter = require('./Letter.js')
-const gradient = require('gradient-string')
 function Word (correctWord) {
   // An array of new Letter objects representing the letters of the underlying word
   var letterArray = correctWord.split('')
@@ -19,18 +18,15 @@ function Word (correctWord) {
   }
   // A function that takes a character as an argument and calls the guess function on each letter object (the second function defined in Letter.js
   this.Checker = function (letter1) {
-    var found = false
     for (var i = 0; i < this.letters.length; i++) {
       this.letters[i].letterCheck(letter1)
-      if (this.letters[i].guessed) {
-        found = true
-      }
     }
-    if (found) {
-      console.log(gradient.summer('\nCorrect\n'))
-    } else {
-      console.log(gradient.summer('\nWrong\n'))
-    }
+  }
+  // A function that builds character through constructive criticism
+  this.trashTalk = function () {
+    var nodeArray = ['Yeah Right, lol', 'Try again', 'nope', 'seriously?', 'Suddenly I feel better about life', 'Try less', 'I can do this all day', 'facepalm', 'double facepalm', "It's okay, I wont tell anybody", 'oh boy', 'whoops', 'Are you even trying?', "You haven't quit yet?", 'You do realize Node is recording this, right?', "It's ok, its just a game.", 'Welp!!']
+    var message = nodeArray[Math.floor(Math.random() * nodeArray.length)]
+    return message
   }
 }
 

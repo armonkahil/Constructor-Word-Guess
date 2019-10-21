@@ -1,76 +1,141 @@
+// var to store inquirer package
 const inquirer = require('inquirer')
+// var to store gradient string package
 const gradient = require('gradient-string')
+// var to store file system package
 const fs = require('fs')
+// var to store Word constructor
 const Word = require('./Word')
+// var to store words from vocab.txt
 var wordBank = []
+// var to store acceptable answers for validation
 var acceptable = []
-var counter = 15
+// var to store letters already guessed
+var alreadyGuessed = []
+// var to store word randomly picked from vocab.txt
+var wordPick = ''
+// var to store guess counter
+var counter = 8
 
+// =============================================================================
+// Game functions
+// =============================================================================
+
+// function that reads compliance.txt and stores the data in an array
 function parameters () {
+  // read compliance.txt
   fs.readFile('compliance.txt', 'utf8', function (error, compliant) {
+    // if error, console log error
     if (error) {
       return console.log(error)
     }
+    // set array equal to data read
     acceptable = compliant.split('')
   })
 }
-function newWord () {
+
+// function that reads vocab.txt and stores the data in an array
+function buildVocab () {
+  // read vocab.txt
   fs.readFile('Vocab.txt', 'utf8', function (error, vocabulary) {
+    // if error, console log it
     if (error) {
       return console.log(error)
     }
-    // console.log(gradient.summer(vocabulary))
+    // set array equal to data read
     wordBank = vocabulary.split(' ')
-    // console.log(gradient.summer(wordBank))
+    // run word picker function
     picker(wordBank)
   })
 }
 
+// function that randomly picks a word from wordBank array
 function picker (wordBank) {
-  var wordPick = wordBank[Math.floor(Math.random() * wordBank.length)]
-  console.log('word picked is', wordPick)
-
+  // set var to randomly picked word
+  wordPick = wordBank[Math.floor(Math.random() * wordBank.length)]
+  // send random word to Word constructor
   var word = new Word(wordPick)
+  // start the guess function
   getGuess(word)
 }
 
+// function to ask whether to start next game
 function nextGame () {
+  // use inquirer to confirm continued play
   inquirer.prompt([
     {
       type: 'confirm',
-      message: 'Feeling lucky? Play again?\n',
+      message: gradient.vice('Feeling lucky? Play again?\n'),
       name: 'confirm',
       default: true
     }]).then(function (foolish) {
+    // if foolish enough to keep playing
     if (foolish) {
-      newWord()
+      // reset counter
+      counter = 15
+      // reset user guesses
+      alreadyGuessed = []
+      // pick next word
+      picker(wordBank)
+    } else {
+      // if not foolish, let player down as easily as possible
+      console.log(gradient.fruit('\nOnly losers quit!!'))
     }
   })
 }
 
+// function that handles guess operation
 function getGuess (guess) {
+  // use inquirer to get guess
   inquirer.prompt([
     {
-      message: guess.wordString() + '\n\nGuess a letter...',
+      message: gradient.summer('Guesses left: ' + counter + '\nLetters already guessed: ' + alreadyGuessed.toString() + '\n' + guess.wordString() + '\n\nGuess a letter...'),
       name: 'userguess',
+      // validation function
       validate: function (letter) {
-        return acceptable.includes(letter)
+        // if user selects a non alphabet character or its already been guess, block input
+        return acceptable.includes(letter) && !alreadyGuessed.includes(letter)
       }
     }
   ]).then(function (answer) {
+    // var for user guess
     var nextLetter = answer.userguess.toLowerCase()
+    // push user guess to already guessed array
+    alreadyGuessed.push(nextLetter)
+    // send user guess to Word constructor
     guess.Checker(nextLetter)
-    if (guess.wordString().includes('_')) {
-      getGuess(guess)
+    // var to store new string without placeholders after user guess
+    var newString = guess.wordString().split('_').join('')
+    // remove empty spaces
+    newString = newString.split(' ').join('')
+    // if new string doesnt equal original word
+    if (newString !== wordPick && counter > 0) {
+      // if new string includes guessed letter
+      if (newString.includes(nextLetter)) {
+        console.log(gradient.vice('\n' + nextLetter + ' was CORRECT!!\n'))
+        getGuess(guess)
+      } else {
+        // if not
+        counter--
+        console.log(gradient.passion('\n' + guess.trashTalk() + '\n' + nextLetter + ' was WRONG!!\n'))
+        getGuess(guess)
+      }
+      // if new string does not equal original word and out of guesses
+    } else if (newString !== wordPick && counter <= 0) {
+      console.log(gradient.passion('\nYOU LOST!!\n\nThe correct word was ' + wordPick.toUpperCase() + '\n'))
+      // start next game function
+      nextGame()
     } else {
-      console.log(gradient.summer('YOU WIN!!\n'))
+      console.log(gradient.vice('\nYOU WIN!!\n\nThe correct word was ' + wordPick.toUpperCase() + '\n'))
+      // start next game function
       nextGame()
     }
   })
 }
-
+// start function
 function start () {
   parameters()
-  newWord()
+  buildVocab()
 }
+// start game
 start()
