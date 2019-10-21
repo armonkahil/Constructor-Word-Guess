@@ -3,7 +3,16 @@ const gradient = require('gradient-string')
 const fs = require('fs')
 const Word = require('./Word')
 var wordBank = []
+var acceptable = [] 
 
+function parameters () {
+  fs.readFile('compliance.txt', 'utf8', function (error, compliant) {
+    if (error) {
+      return console.log(error)
+    }
+    acceptable = compliant.split('')
+  })
+}
 function newWord () {
   fs.readFile('Vocab.txt', 'utf8', function (error, vocabulary) {
     if (error) {
@@ -28,15 +37,19 @@ function getGuess (guess) {
     {
       message: guess.wordString() + '\n\nGuess a letter...',
       name: 'userguess',
-      type: 'input'
+      validate: function (letter) {
+        return acceptable.includes(letter)
+      }
     }
   ]).then(function (answer) {
-    guess.Checker(answer.userguess)
+    var nextLetter = answer.userguess.toLowerCase()
+    guess.Checker(nextLetter)
     getGuess(guess)
   })
 }
 
 function start () {
+  parameters()
   newWord()
 }
 start()
