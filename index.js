@@ -3,7 +3,8 @@ const gradient = require('gradient-string')
 const fs = require('fs')
 const Word = require('./Word')
 var wordBank = []
-var acceptable = [] 
+var acceptable = []
+var counter = 15
 
 function parameters () {
   fs.readFile('compliance.txt', 'utf8', function (error, compliant) {
@@ -28,8 +29,23 @@ function newWord () {
 function picker (wordBank) {
   var wordPick = wordBank[Math.floor(Math.random() * wordBank.length)]
   console.log('word picked is', wordPick)
+
   var word = new Word(wordPick)
   getGuess(word)
+}
+
+function nextGame () {
+  inquirer.prompt([
+    {
+      type: 'confirm',
+      message: 'Feeling lucky? Play again?\n',
+      name: 'confirm',
+      default: true
+    }]).then(function (foolish) {
+    if (foolish) {
+      newWord()
+    }
+  })
 }
 
 function getGuess (guess) {
@@ -44,7 +60,12 @@ function getGuess (guess) {
   ]).then(function (answer) {
     var nextLetter = answer.userguess.toLowerCase()
     guess.Checker(nextLetter)
-    getGuess(guess)
+    if (guess.wordString().includes('_')) {
+      getGuess(guess)
+    } else {
+      console.log(gradient.summer('YOU WIN!!\n'))
+      nextGame()
+    }
   })
 }
 
