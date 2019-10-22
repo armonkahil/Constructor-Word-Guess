@@ -41,7 +41,7 @@
 
 
 ### Lose
-![Lose](assets/images/lose.PNG)
+![Lose](assets/images/lost.PNG)
 
 
 ### Continue
