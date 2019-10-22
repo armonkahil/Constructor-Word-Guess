@@ -43,7 +43,7 @@ Contains a constructor, Word that depends on the Letter constructor. This is use
 
 ### But eventually proved to be problematic
 ![Early versions of the app proved problematic](assets/images/tron2.gif)
-![Early versions of the app proved problematic](assets/images/tron3.gif)
+![Early versions of the app proved problematic](assets/images/tron4.gif)
 
 ### Seriously problematic
 ![Wargames](assets/images/wargames.webp)
