@@ -1,6 +1,6 @@
 ## Constructor Word Guess Game
 
-### Advanced Javascript Assignment (optional)
+### Advanced Javascript Assignment ~~(optional)~~
 
 ### In this assignment, you will make a command line word guess game. I incorporated the same 1,291 of the hardest words in the English Language.Good luck
 
