@@ -72,7 +72,7 @@ function nextGame () {
     // if foolish enough to keep playing
     if (foolish) {
       // reset counter
-      counter = 15
+      counter = 8
       // reset user guesses
       alreadyGuessed = []
       // pick next word

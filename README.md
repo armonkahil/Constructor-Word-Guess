@@ -23,3 +23,26 @@
 ![Wargames](assets/images/wargames.webp)
 
 ## Final Version
+
+### Start
+![Start image](assets/images/start.PNG)
+
+
+### Wrong Answer
+![Wrong Answer](assets/images/wrong.PNG)
+
+
+### Correct Answer
+![Correct Answer](assets/images/correct.PNG)
+
+
+### Win
+![Win](assets/images/win.PNG)
+
+
+### Lose
+![Lose](assets/images/lose.PNG)
+
+
+### Continue
+![Continue](assets/images/continue.PNG)
