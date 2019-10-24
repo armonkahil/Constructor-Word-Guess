@@ -70,7 +70,7 @@ function nextGame () {
       default: true
     }]).then(function (foolish) {
     // if foolish enough to keep playing
-    if (foolish) {
+    if (foolish.confirm) {
       // reset counter
       counter = 8
       // reset user guesses
