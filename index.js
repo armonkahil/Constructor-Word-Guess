@@ -79,7 +79,7 @@ function nextGame () {
       picker(wordBank)
     } else {
       // if not foolish, let player down as easily as possible
-      console.log(gradient.fruit('\nOnly losers quit!!'))
+      console.log(gradient.fruit('\nOnly losers quit!!\n'))
     }
   })
 }
@@ -94,7 +94,7 @@ function getGuess (guess) {
       // validation function
       validate: function (letter) {
         // if user selects a non alphabet character or its already been guess, block input
-        return acceptable.includes(letter) && !alreadyGuessed.includes(letter)
+        return (acceptable.includes(letter) && !alreadyGuessed.includes(letter))
       }
     }
   ]).then(function (answer) {

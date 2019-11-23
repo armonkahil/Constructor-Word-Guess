@@ -25,7 +25,7 @@ function Word (correctWord) {
   // A function that builds character through constructive criticism
   this.trashTalk = function () {
     var nodeArray = ['Yeah Right, lol', 'Try again', 'nope', 'seriously?', 'Suddenly I feel better about life', 'Try less', 'I can do this all day', 'facepalm', 'double facepalm', "It's okay, I wont tell anybody", 'oh boy', 'whoops', 'Are you even trying?', "You haven't quit yet?", 'You do realize Node is recording this, right?', "It's ok, its just a game.", 'Welp!!']
-    var message = nodeArray[Math.floor(Math.random() * nodeArray.length)]
+    var message = nodeArray[Math.floor(Math.random() * nodeArray.length)] + '\n'
     return message
   }
 }

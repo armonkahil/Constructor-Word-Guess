@@ -38,7 +38,7 @@ Contains a constructor, Word that depends on the Letter constructor. This is use
 
 ## Demo Pics
 
-### As for most of my projects, early versions look very promising
+### As for most of my projects, early versions looked very promising
 ![Early versions of the app were very promising](assets/images/tron1.gif)
 
 ### But eventually proved to be problematic
