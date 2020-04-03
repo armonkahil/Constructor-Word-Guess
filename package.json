@@ -18,6 +18,6 @@
   "homepage": "https://github.com/armonkahil/Constructor-Word-Guess#readme",
   "dependencies": {
     "gradient-string": "^1.2.0",
-    "inquirer": "^7.0.0"
+    "inquirer": "^7.1.0"
   }
 }
